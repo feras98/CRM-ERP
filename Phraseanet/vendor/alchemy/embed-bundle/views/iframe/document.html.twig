@@ -1,0 +1,39 @@
+{% extends "@alchemy_embed/iframe/layout.html.twig" %}
+
+{% block stylesheet %}
+    {% if document.player == 'flexpaper' %}
+        <link type="text/css" rel="stylesheet" href="/assets/vendors/alchemy-embed-medias/players/flexpaper/skin/flexpaper.css">
+    {% elseif document.player == 'pdfjs' %}
+        <link type="text/css" rel="stylesheet" href="/assets/vendors/alchemy-embed-medias/players/pdfjs/skin/pdfjs.css">
+    {% endif %}
+    <script type="text/javascript" src="/assets/vendors/jquery/jquery{% if not app.debug %}.min{% endif %}.js"></script>
+{% endblock %}
+
+{% block footerScripts %}
+    <script>
+        var envConfiguration = (function () {
+            return {
+                locale: '{{app.locale}}',
+                isStandalone: (window === window.top) ? true : false,
+                resource: {
+                    width: {{embedMedia.dimensions.width}},
+                    height: {{embedMedia.dimensions.height}},
+                    {#
+                        swf params need httpscheme
+                    #}
+                    url: "{{embedMedia.url}}"
+                }
+            };
+        })();
+    </script>
+    <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/common.js"></script>
+    {% if document.player == 'flexpaper' %}
+        <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/document_flexpaper.js"></script>
+    {% elseif document.player == 'pdfjs' %}
+        <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/document_pdfjs.js"></script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="document-player"></div>
+{% endblock %}

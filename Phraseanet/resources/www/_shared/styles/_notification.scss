@@ -1,0 +1,130 @@
+// compiled to common.css
+
+@import 'variables';
+
+.notification_trigger {
+    cursor: pointer;
+
+    .counter {
+        border: 1px solid white;
+        background: red;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        font-size: 10px;
+        font-weight: bold;
+        display: inline-block;
+        line-height: 12px;
+        margin: 0;
+        padding: 2px 4px;
+    }
+
+    &.open {
+        background-color: white;
+        border-bottom: 1px solid white;
+
+        a span {
+            color: black;
+        }
+    }
+}
+
+
+#notification_box {
+    background-color: white;
+    border: 1px solid black;
+    border-top: none;
+    position: absolute;
+    max-height: 400px;
+    top: 42px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 668;
+    right: 20px;
+    color: black;
+
+    .time {
+        color: #414141;
+    }
+
+    a {
+        color: #08c;
+    }
+}
+
+#notifications-dialog {
+    // .notification_title : date group title
+    .notification_title {
+        padding: 10px 0 5px;
+    }
+
+    .time {
+        color: #666666;
+    }
+
+    a {
+        color: #08c;
+    }
+}
+
+#notification_box, #notifications-dialog {
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .notification {
+        border-bottom: 1px grey solid;
+        padding: 5px 10px;
+
+        .time {
+            font-size: 11px;
+            white-space: nowrap;
+            margin-left: 0;
+        }
+
+        // spot to show the notif as unread or read
+        //
+        // if read, the notif has no "unread" class
+        .icon_read {
+            // --- no need sign for the read notif ---
+            //display: inherit;
+            //color: green;
+            //&::before {
+            //    content: '\02714'     // checked
+            //}
+            display: none;
+        }
+
+        .icon_unread {
+            // --- clickable red spot for the unread notif (to mark it as read) ---
+            display: none;
+            cursor: pointer;
+            color:red;
+            &::before {
+                content: '\02B24';      // large bullet
+            }
+        }
+
+        &.unread {
+            .icon_read {
+                display: none;
+            }
+
+            // if unread, the notif shows the clickable spot
+            .icon_unread {
+                display: inherit;
+            }
+        }
+    }
+
+    .navigation {
+        margin-top: 15px;
+        margin-bottom: 5px;
+        text-align: center;
+        font-size: large;
+    }
+}
+

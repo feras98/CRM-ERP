@@ -1,0 +1,51 @@
+{% extends "@alchemy_embed/iframe/layout.html.twig" %}
+
+{% block stylesheet %}
+    {% if audio.player == 'videojs' %}
+        <link type="text/css" rel="stylesheet" href="/assets/vendors/alchemy-embed-medias/players/videojs/skin/videojs.css">
+    {% else %}
+        <link type="text/css" rel="stylesheet" href="/assets/vendors/alchemy-embed-medias/players/flowplayer/skin/flowplayer.css">
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    {% if audio.player == 'videojs' %}
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/players/videojs/videojs-ie8.js"></script>
+        <![endif]-->
+    {% endif %}
+{% endblock %}
+
+{% block footerScripts %}
+    <script>
+        var envConfiguration = (function () {
+            return {
+                locale: '{{ app.locale }}',
+                isStandalone: (window === window.top) ? true : false,
+                resource: {
+                    width: {{ embedMedia.dimensions.width }},
+                    height: {{ embedMedia.dimensions.height }},
+                    autoplay: {{ audio.autoplay |json_encode|raw }},
+                    fitIn: true, // force video to downScale / upscale
+                    aspectRatio: '{{ embedMedia.dimensions.width }}:{{ embedMedia.dimensions.height }}',
+                    coverUrl: "{{ embedMedia.coverUrl }}",
+                    playbackRates: {{ audio['available_speeds']|json_encode|raw }},
+                    sources: [{% for source in  embedMedia.source %}{
+                        url: "{{ source.url }}",
+                        type: "{{ source.type }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}]
+                }
+            };
+        })();
+    </script>
+    <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/common.js"></script>
+    {% if audio.player == 'videojs' %}
+        <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/audio_videojs.js"></script>
+    {% else %}
+        <script type="text/javascript" src="/assets/vendors/alchemy-embed-medias/audio_flowplayer.js"></script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="audio-player"></div>
+{% endblock %}

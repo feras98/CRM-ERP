@@ -1,0 +1,14 @@
+{% if with_children.records.stories().count() > 0 %}
+    <label class="checkbox">
+        <input type="checkbox" id="del_children" name="del_children"
+               value="1"> {{ "Also delete records that rely on groupings." | trans }}
+    </label>
+{% endif %}
+
+<div id="delete_records_parent_only">
+    {{ include('prod/actions/delete_records_confirm_form.html.twig', parents_only) }}
+</div>
+
+<div id="delete_records_with_children">
+    {{ include('prod/actions/delete_records_confirm_form.html.twig', with_children) }}
+</div>

@@ -1,0 +1,12 @@
+<video id="embed-video" class="embed-resource video-js vjs-default-skin vjs-big-play-centered" controls
+       preload="none" width="100%" height="100%" poster="<%= coverUrl %>">
+    <% _.each( sources, function( s ){ %>
+    <source src="<%= s.url %>" type="<%= s.type %>">
+    <% }); %>
+    <% _.each( tracks, function( s ){ %>
+    <% if (s.kind == "subtitles") { %>
+    <track src="<%= s.src %>" kind="<%= s.kind %>" srclang="<%= s.srclang %>" label="<%= s.label %>" <% if (s.default == true) { %>default<% } %> >
+    <% } %>
+    <% }); %>
+
+</video>

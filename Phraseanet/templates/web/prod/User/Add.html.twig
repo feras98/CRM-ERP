@@ -1,0 +1,46 @@
+{# designed to be printed in a small box #}
+<div class="PNB10" callback="{{ callback }}">
+    {# --- use the "push" class as theme : blue buttons #}
+    <form  id="quickAddUser" class="dead_push" method="POST" action="{{ path('prod_push_do_add_user') }}" style="padding-top: 20px">
+        <table>
+            <tr>
+                <td>
+                    <input name="firstname" placeholder="{{ 'First Name' | trans }} *" type="text" value=""/>
+                </td>
+                <td>
+                    <input name="lastname" placeholder="{{ 'Last Name' | trans }} *" type="text" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input name="email" placeholder="{{ 'Email Name' | trans }} *" type="text" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="company" placeholder="{{ 'Company' | trans }}" type="text" value=""/>
+                </td>
+                <td>
+                    <input name="job" placeholder="{{ 'Job' | trans }}" type="text" value=""/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;padding: 10px 0px;">
+                    <button class="cancel colored" type="button">{{ 'Cancel' | trans }}</button>
+                    <button class="valid colored inverse" type="submit">{{ 'Add' | trans }}</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="messages"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var addUserConfig = {
+        geonameServerUrl: "{{ app['geonames.server-uri'] }}"
+    }
+
+</script>

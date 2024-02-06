@@ -1,0 +1,124 @@
+
+<div class="PNB BasketBrowser" id="BasketBrowser">
+  <div class="PNB10 Browser">
+    <div class="PNB10 leftBrowser">
+      <form name="BasketBrowser" method="GET" action="{{ path('prod_workzone_search') }}">
+        <input name="Query" class="Query search" placeholder="{{ 'Search baskets' | trans }}" type="text"/>
+
+        <h1>{{ 'See' | trans }}</h1>
+        <ul class="unstyled">
+          <li class="first">
+            <input id="basket_browse_all" type="radio" name="Type" value="" checked="checked" />
+            <label class="selected" for="basket_browse_all">
+              {{ 'All' | trans }}
+            </label>
+          </li>
+          <li>
+            <input id="basket_browse_my_bask" type="radio" name="Type" value="{{ constant('Alchemy\\Phrasea\\Model\\Repositories\\BasketRepository::MYBASKETS') }}" />
+            <label for="basket_browse_my_bask">
+              {{ 'My baskets' | trans }}
+            </label>
+          </li>
+          <li>
+            <input id="basket_browse_received" type="radio" name="Type" value="{{ constant('Alchemy\\Phrasea\\Model\\Repositories\\BasketRepository::RECEIVED') }}" />
+            <label for="basket_browse_received">
+              {{ 'Received baskets' | trans }}
+            </label>
+          </li>
+          <li>
+            <input id="basket_browse_valid_sent" type="radio" name="Type" value="{{ constant('Alchemy\\Phrasea\\Model\\Repositories\\BasketRepository::VALIDATION_SENT') }}" />
+            <label for="basket_browse_valid_sent">
+              {{ 'Validations sent' | trans }}
+            </label>
+          </li>
+          <li>
+            <input id="basket_browse_valid_done" type="radio" name="Type" value="{{ constant('Alchemy\\Phrasea\\Model\\Repositories\\BasketRepository::VALIDATION_DONE') }}" />
+            <label for="basket_browse_valid_done">
+              {{ 'Validations received' | trans }}
+            </label>
+          </li>
+        </ul>
+        <h1>{{ 'When' | trans }}</h1>
+        <ul class="unstyled">
+          <li class="first">
+            <input id="basket_browse_all_time" type="radio" name="Year" value="" checked="checked" />
+            <label for="basket_browse_all_time">
+              {{ 'Any time' | trans }}
+            </label>
+          </li>
+          {% set CurrentYear = current_date.format('Y') %}
+          <li>
+            <input id="basket_browse_this_year" type="radio" name="Year" value="{{ CurrentYear }}" />
+            <label for="basket_browse_this_year">
+              {{ 'This year' | trans }}
+            </label>
+          </li>
+          {% set CurrentYear = CurrentYear - 1 %}
+          <li>
+            <input id="basket_browse_last_year" type="radio" name="Year" value="{{ CurrentYear }}" />
+            <label for="basket_browse_last_year">
+              {{ 'Past year' | trans }}
+            </label>
+          </li>
+          {% set CurrentYear = CurrentYear - 1 %}
+          <li>
+            <input id="basket_browse_year{{ CurrentYear }}" type="radio" name="Year" value="{{ CurrentYear }}" />
+            <label for="basket_browse_year{{ CurrentYear }}">
+              {{ CurrentYear }}
+            </label>
+          </li>
+          {% set CurrentYear = CurrentYear - 1 %}
+          <li>
+            <input id="basket_browse_year{{ CurrentYear }}" type="radio" name="Year" value="{{ CurrentYear }}" />
+            <label for="basket_browse_year{{ CurrentYear }}">
+              {{ CurrentYear }}
+            </label>
+          </li>
+        </ul>
+      </form>
+
+    </div>
+    <div class="PNB results rightBrowser">
+    </div>
+  </div>
+  <div class="PNB10 Basket">
+  </div>
+</div>
+<style>
+.dialog-Medium {
+  height: 544px!important;
+  overflow: hidden!important;
+}
+.paginator a {
+  background: none!important;
+  border: 0;
+  border-radius: 0;
+  padding: 0 9px;
+  font-weight: bold;
+}
+.result_loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+<script>
+    //load the next result page
+    jQuery(document).ready(function(){
+        jQuery('.next_res').click(function(){
+            jQuery('.results').append('<img class="result_loader" src="/assets/common/images/icons/loading.svg">');
+            jQuery('.results').load($(this).attr('href'));
+            return false;
+        });
+    });
+    //load the prev result page
+    jQuery(document).ready(function(){
+        jQuery('.prev_res').click(function(){
+            jQuery('.results').append('<img class="result_loader" src="/assets/common/images/icons/loading.svg">');
+            jQuery('.results').load($(this).attr('href'));
+            return false;
+        });
+    });
+</script>
+
